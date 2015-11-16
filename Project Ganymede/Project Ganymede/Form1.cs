@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,9 +32,14 @@ namespace Project_Ganymede
         }
         void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-
+            playSimpleSound(@"C:\Users\Kronos\Desktop\Io\Audio\tick.wav");
             // show the keys pressed in a label.
             //label1.Text = e.Modifier.ToString() + " + " + e.Key.ToString();
+        }
+        private void playSimpleSound(string path)
+        {
+            SoundPlayer simpleSound = new SoundPlayer(path);
+            simpleSound.Play();
         }
     } 
     public sealed class KeyboardHook : IDisposable
