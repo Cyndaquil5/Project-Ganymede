@@ -9,11 +9,29 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
+using System.Diagnostics;
 namespace Project_Ganymede
 {   
     public partial class Form1 : Form
     {
+
+        List<Image> images = new List<Image>();
+        private void wallpaperchange()
+        {
+            //Fill with more images
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+
+            //Make a Random-object
+            Random rand = new Random();         
+  
+
+            //Pick a random image from the list
+            this.BackgroundImage = images[rand.Next(0, images.Count - 1)];
+            
+
+        }
+        
         public Form1()
         {
             InitializeComponent();
@@ -29,10 +47,18 @@ namespace Project_Ganymede
         {
             hook.KeyPressed +=  new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
             hook.RegisterHotKey(Project_Ganymede.ModifierKeys.Shift, Keys.F1);
+
+            images.Add(Image.FromFile(@"C:\Users\Kronos\Desktop\Io\Switching Wallpaper\Abstract Wallpaper.jpg"));
+            images.Add(Image.FromFile(@"C:\Users\Kronos\Desktop\Io\Switching Wallpaper\Helix Nebula.jpg"));
+            images.Add(Image.FromFile(@"C:\Users\Kronos\Desktop\Io\Switching Wallpaper\Sculptor Galaxy.jpg"));
+            images.Add(Image.FromFile(@"C:\Users\Kronos\Desktop\Io\Switching Wallpaper\Crab Nebula.jpg"));
         }
         void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            playSimpleSound(@"C:\Users\Kronos\Desktop\Io\Audio\tick.wav");
+            Process.Start("Firefox.exe");
+            playSimpleSound(@"C:\Users\Kronos\Desktop\Io\Audio\heavengate.wav");
+            Process.Start("cmd.exe");
+            playSimpleSound(@"C:\Users\Kronos\Desktop\Io\Audio\heavengate.wav");
             // show the keys pressed in a label.
             //label1.Text = e.Modifier.ToString() + " + " + e.Key.ToString();
         }
@@ -41,7 +67,34 @@ namespace Project_Ganymede
             SoundPlayer simpleSound = new SoundPlayer(path);
             simpleSound.Play();
         }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            playSimpleSound(@"C:\Users\Kronos\Desktop\Io\Audio\kaching.wav");
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            wallpaperchange();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Process.Start("taskmgr.exe");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Process.Start("Firefox.exe");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Process.Start("cmd.exe");
+        }
     } 
+    
     public sealed class KeyboardHook : IDisposable
     {
         // Registers a hot key with Windows.
